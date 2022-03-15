@@ -35,5 +35,5 @@ tasks.withType<Test> {
 }
 
 springBoot {
-    mainClass.set("uek.mrpbackend.MrpBackendApplication")
+    mainClass.set("uek.mrpbackend.MrpBackendApplicationKt")
 }

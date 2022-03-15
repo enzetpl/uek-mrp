@@ -33,3 +33,9 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "uek.mrpbackend.MrpBackendApplication"
+    }
+}

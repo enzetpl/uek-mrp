@@ -34,6 +34,8 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-springBoot {
-    mainClass.set("uek.mrpbackend.MrpBackendApplicationKt")
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "uek.mrpbackend.MrpBackendApplicationKt"
+    }
 }

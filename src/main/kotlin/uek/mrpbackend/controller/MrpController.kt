@@ -1,9 +1,6 @@
 package uek.mrpbackend.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import uek.mrpbackend.service.Dataaa
 import uek.mrpbackend.service.MrpService
 
@@ -11,7 +8,7 @@ import uek.mrpbackend.service.MrpService
 @RequestMapping("/api/tables")
 class MrpController(val mrpService: MrpService) {
 
-    @GetMapping
+    @PostMapping
     fun getTables(@RequestBody mrpRequest: MrpRequest): MrpResponse {
         return mrpService.get(mrpRequest)
     }

@@ -7,7 +7,7 @@ import kotlin.math.absoluteValue
 @Service
 class FrameService {
     fun getTables(requestedFrames: List<RequestedItem>, mrpData: MrpData): Dataaa {
-        val finalData = Dataaa()
+        val finalData = Dataaa(requestedFrames.size)
         requestedFrames.mapIndexed { index, requestedItem ->
             finalData.totalDemand[index] = requestedItem.size
             val expectedMinusOneWeek = if(index - 1 >= 0) finalData.expectedInStock[index - 1] else mrpData.startAvaibility
@@ -45,12 +45,22 @@ class FrameService {
 
 }
 
-data class Dataaa(
-    val totalDemand: MutableList<Int> = MutableList(10) { 0 },
-    val plannedReceipts: MutableList<Int> = MutableList(10) { 0 },
-    val expectedInStock: MutableList<Int> = MutableList(10) { 0 },
-    val netDemand: MutableList<Int> = MutableList(10) { 0 },
-    val plannedOrders: MutableList<Int> = MutableList(10) { 0 },
-    val plannedOrderIntake: MutableList<Int> = MutableList(10) { 0 },
-)
+class Dataaa(size: Int) {
+
+    val totalDemand: MutableList<Int>
+    val plannedReceipts: MutableList<Int>
+    val expectedInStock: MutableList<Int>
+    val netDemand: MutableList<Int>
+    val plannedOrders: MutableList<Int>
+    val plannedOrderIntake: MutableList<Int>
+
+    init {
+        totalDemand = MutableList(size) { 0 }
+        plannedReceipts = MutableList(size) { 0 }
+        expectedInStock = MutableList(size) { 0 }
+        netDemand = MutableList(size) { 0 }
+        plannedOrders = MutableList(size) { 0 }
+        plannedOrderIntake = MutableList(size) { 0 }
+    }
+}
 

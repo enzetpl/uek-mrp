@@ -12,7 +12,7 @@ class MrpServiceTest {
 
     @Test
     fun zad1() {
-        val request = MrpRequest(BedData(2, 1, listOf(0,0,0,0,20,0,40,0,0,0), listOf(0,0,0,0,28,0,30,0,0,0)),
+        val request = MrpRequest(BedData(2, 1, listOf(0,0,0,0,20,0,40), listOf(0,0,0,0,28,0,30)),
         MrpData(22,40,3),
             MrpData(22,40,3),
             MrpData(40,120,2),

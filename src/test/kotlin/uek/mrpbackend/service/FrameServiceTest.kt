@@ -21,7 +21,7 @@ class FrameServiceTest {
                 RequestedItem(6, 0),
                 )
         val mrpData = MrpData(22, 40, 3)
-        frameService.getTables(requestedItems, mrpData)
+        frameService.getTables(requestedItems, mrpData,"frame")
     }
 
     @Test
@@ -37,7 +37,7 @@ class FrameServiceTest {
                 RequestedItem(6, 0),
             )
         val mrpData = MrpData(10, 50, 1)
-        frameService.getTables(requestedItems, mrpData)
+        frameService.getTables(requestedItems, mrpData, "test")
     }
 
     @Test
@@ -53,6 +53,6 @@ class FrameServiceTest {
                 RequestedItem(6, 0),
             )
         val mrpData = MrpData(40, 120, 2)
-        frameService.getTables(requestedItems, mrpData)
+        frameService.getTables(requestedItems, mrpData, "test")
     }
 }

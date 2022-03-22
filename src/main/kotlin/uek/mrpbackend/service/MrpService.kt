@@ -43,21 +43,21 @@ class MrpService(val frameService: FrameService) {
             requestedStands += RequestedItem(requestedStands.size, 0)
             requestedLegs += RequestedItem(requestedLegs.size, 0)
         }
-        val frameTable = frameService.getTables(requestedFrames, mrpRequest.frame)
-        val standTable = frameService.getTables(requestedStands, mrpRequest.stand)
-        val legsTable = frameService.getTables(requestedLegs, mrpRequest.legs)
+        val frameTable = frameService.getTables(requestedFrames, mrpRequest.frame, "frame")
+        val standTable = frameService.getTables(requestedStands, mrpRequest.stand, "stand")
+        val legsTable = frameService.getTables(requestedLegs, mrpRequest.legs, "legs")
         val bigBoards = frameService.getTables(frameTable.plannedOrders.mapIndexed { index, i ->
             RequestedItem(
                 index,
                 i * BOARDS_IN_FRAME
             )
-        }, mrpRequest.bigBoards)
+        }, mrpRequest.bigBoards, "bigBoards")
         val smallBoards = frameService.getTables(standTable.plannedOrders.mapIndexed { index, i ->
             RequestedItem(
                 index,
                 i * BOARDS_IN_STAND
             )
-        }, mrpRequest.smallBoards)
+        }, mrpRequest.smallBoards, "smallBoards")
         return MrpResponse(
             GhpTable(mrpRequest.bed.expectedDemand, mrpRequest.bed.production, ghpAvailable),
             frameTable,

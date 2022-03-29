@@ -21,7 +21,7 @@ class MrpService(val frameService: FrameService) {
         var avaibility = mrpRequest.bed.startAvaibility
         val ghpAvailable = mrpRequest.bed.production.mapIndexed { index, i ->
             avaibility = avaibility - mrpRequest.bed.expectedDemand[index] + i
-            if(avaibility < 0) throw NotEnoughItemException("cumulated demand is bigger than cumulated production in week ${index+1}, change request")
+            if(avaibility < 0) throw NotEnoughItemException("Przewidywywany popyt jest większy niż zaplanowana produkcja łóżek w tygodniu ${index+1}")
             avaibility
         }
         List(mrpRequest.bed.expectedDemand.size) { index ->

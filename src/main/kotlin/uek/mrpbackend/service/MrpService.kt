@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import uek.mrpbackend.controller.GhpTable
 import uek.mrpbackend.controller.MrpRequest
 import uek.mrpbackend.controller.MrpResponse
+import uek.mrpbackend.controller.NotEnoughItemException
 
 @Service
 class MrpService(val frameService: FrameService) {
@@ -20,6 +21,7 @@ class MrpService(val frameService: FrameService) {
         var avaibility = mrpRequest.bed.startAvaibility
         val ghpAvailable = mrpRequest.bed.production.mapIndexed { index, i ->
             avaibility = avaibility - mrpRequest.bed.expectedDemand[index] + i
+            if(avaibility < 0) throw NotEnoughItemException("cumulated demand is bigger than cumulated production in week ${index+1}, change request")
             avaibility
         }
         List(mrpRequest.bed.expectedDemand.size) { index ->

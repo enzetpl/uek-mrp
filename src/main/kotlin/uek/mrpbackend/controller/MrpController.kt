@@ -1,5 +1,7 @@
 package uek.mrpbackend.controller
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import uek.mrpbackend.service.Dataaa
 import uek.mrpbackend.service.MrpService
@@ -12,7 +14,18 @@ class MrpController(val mrpService: MrpService) {
     fun getTables(@RequestBody mrpRequest: MrpRequest): MrpResponse {
         return mrpService.get(mrpRequest)
     }
+
+
+    @ExceptionHandler(NotEnoughItemException::class)
+    fun handleContentNotAllowedException(cnae: NotEnoughItemException): ResponseEntity<ApiError> {
+
+        return ResponseEntity<ApiError>(ApiError(cnae.msg), HttpStatus.BAD_REQUEST)
+    }
 }
+
+data class ApiError(val message: String)
+
+data class NotEnoughItemException(val msg: String) : RuntimeException(msg)
 
 data class MrpRequest(
     val bed: BedData,
@@ -48,5 +61,5 @@ data class MrpResponse(
 data class GhpTable(
     val expectedDemand: List<Int>,
     val production: List<Int>,
-    val available :List<Int>
+    val available: List<Int>
 )

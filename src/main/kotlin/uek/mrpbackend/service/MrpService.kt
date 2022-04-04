@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service
 import uek.mrpbackend.controller.GhpTable
 import uek.mrpbackend.controller.MrpRequest
 import uek.mrpbackend.controller.MrpResponse
-import uek.mrpbackend.controller.NotEnoughItemException
 
 @Service
 class MrpService(val frameService: FrameService) {
@@ -16,12 +15,11 @@ class MrpService(val frameService: FrameService) {
     fun get(mrpRequest: MrpRequest): MrpResponse {
         val requestedFrames = mutableListOf<RequestedItem>()
         val requestedLegs = mutableListOf<RequestedItem>()
-            val requestedStands = mutableListOf<RequestedItem>()
+        val requestedStands = mutableListOf<RequestedItem>()
 
         var avaibility = mrpRequest.bed.startAvaibility
         val ghpAvailable = mrpRequest.bed.production.mapIndexed { index, i ->
             avaibility = avaibility - mrpRequest.bed.expectedDemand[index] + i
-            if(avaibility < 0) throw NotEnoughItemException("Przewidywywany popyt jest większy niż zaplanowana produkcja łóżek w tygodniu ${index+1}")
             avaibility
         }
         List(mrpRequest.bed.expectedDemand.size) { index ->
